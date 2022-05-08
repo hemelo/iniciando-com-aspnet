@@ -9,23 +9,18 @@ namespace ListaLeitura.App
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            var builder = new RouteBuilder(app);
-            builder.MapRoute("Livros/ParaLer", LivrosLogica.LivrosParaLer);
-            builder.MapRoute("Livros/Lendo", LivrosLogica.LivrosLendo);
-            builder.MapRoute("Livros/Lidos", LivrosLogica.LivrosLidos);
-            builder.MapRoute("Livros/Detalhes/{id:int}", LivrosLogica.ExibeDetalhes);
-            builder.MapRoute("Cadastro/NovoLivro/{nome}/{autor}", CadastroLogica.NovoLivroParaLer);
-            builder.MapRoute("Cadastro/NovoLivro", CadastroLogica.ExibeFormulario);
-            builder.MapRoute("Cadastro/Incluir", CadastroLogica.ProcessaFormulario);
+            /* Com esse comando as rotas vão ser lidas no padrão /{Controller}/{Action} 
+             * O ASP NET irá ler as classes terminadas em Controller.cs e as actions são as funções
+             * 
+             */
+            app.UseMvcWithDefaultRoute();
 
-            var rotas = builder.Build();
-
-            app.UseRouter(rotas);
+            app.UseDeveloperExceptionPage();
         }
 
     }
